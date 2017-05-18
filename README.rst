@@ -35,7 +35,10 @@ Contains various modules for aggregations.
 GroupConcat
 ~~~~~~~~~~~
 Works like Concat, but for concatenating field values of related ManyToMany
-model.
+model. For instance, you may use it if you have an ``Author`` model as
+ManyToMany relation in the ``Book`` model
+(``Book.authors = ManyToManyField(Author)``) and you want to have concatenated
+list of all authors coupled to a given book.
 
 Given the following models:
 
