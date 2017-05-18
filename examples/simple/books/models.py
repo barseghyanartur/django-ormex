@@ -27,6 +27,8 @@ class Publisher(models.Model):
     class Meta(object):
         """Meta options."""
 
+        ordering = ["id"]
+
     def __str__(self):
         return self.name
 
@@ -42,6 +44,8 @@ class Author(models.Model):
 
     class Meta(object):
         """Meta options."""
+
+        ordering = ["id"]
 
     def __str__(self):
         return self.name
