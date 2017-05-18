@@ -10,7 +10,7 @@ Prerequisites
 
 Installation
 ============
-(1) Install in your virtual environment
+(1) Install in your virtual environment.
 
     Latest stable version from PyPI:
 
@@ -80,23 +80,15 @@ We could use GroupConcat as follows:
     from ormex.aggregations import GroupConcat
 
     books = Book.objects.all() \
-            .select_related('publisher') \
-            .prefetch_related('authors') \
-            .only('id',
-                  'title',
-                  'pages',
-                  'price',
-                  'publisher__id',
-                  'publisher__name',
-                  'authors__id',
-                  'authors__name') \
             .values('id',
                     'title',
                     'pages',
                     'price',
                     'publisher__id',
                     'publisher__name') \
-            .annotate(authors__name=GroupConcat('authors__name')) \
+            .annotate(
+                authors__name=GroupConcat('authors__name', separator=', ')
+            ) \
             .distinct()
 
 Demo
