@@ -1,0 +1,6 @@
+html5lib==1.0b8
+Pillow==3.3.1
+python-memcached==1.58
+pytz
+requests
+six>=1.9

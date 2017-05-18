@@ -1,0 +1,29 @@
+{% extends "exercises/author_list.html" %}
+{% block meta-title %}Create authors{% endblock %}
+
+{% block nav-menu-items %}
+    {% with True as books_create_authors_is_active %}
+        {% include "snippets/menu_items_exercises.html" %}
+    {% endwith %}
+{% endblock nav-menu-items %}
+
+{% block main-content %}
+    <h2>Authors</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Salutation</th>
+            <th>Name</th>
+            <th>E-mail</th>
+        </tr>
+        </thead>
+        {% for author in object_list %}
+            <tr>
+                <td>{{ author.salutation }}</td>
+                <td>{{ author.name }}</td>
+                <td>{{ author.email }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+{% block sidebar-content %}{% endblock sidebar-content %}
