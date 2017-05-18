@@ -96,23 +96,15 @@ class BookListValuesView(ListView):
     def get_queryset(self):
         """Get queryset."""
         return self.model.objects.all() \
-            .select_related('publisher') \
-            .prefetch_related('authors') \
-            .only('id',
-                  'title',
-                  'pages',
-                  'price',
-                  'publisher__id',
-                  'publisher__name',
-                  'authors__id',
-                  'authors__name') \
             .values('id',
                     'title',
                     'pages',
                     'price',
                     'publisher__id',
                     'publisher__name') \
-            .annotate(authors__name=GroupConcat('authors__name', separator=', ')) \
+            .annotate(
+                authors__name=GroupConcat('authors__name', separator=', ')
+            ) \
             .distinct()
 
 
@@ -135,17 +127,19 @@ class AuthorListWithCountsView(ListView):
                   'salutation',
                   'name',
                   'email') \
-            .annotate(number_of_books=Count('books'),
-                      first_book_published_on=Min('books__publication_date'),
-                      last_book_published_on=Max('books__publication_date'),
-                      lowest_book_price=Min('books__price'),
-                      highest_book_price=Max('books__price'),
-                      average_book_price=Avg('books__price'),
-                      average_number_of_pages_per_book=Avg('books__pages'),
-                      number_of_books_sold=Count('books__order_lines'),
-                      total_amount_earned=Sum(
-                          'books__order_lines__book__price')
-                      )
+            .annotate(
+                number_of_books=Count('books'),
+                first_book_published_on=Min('books__publication_date'),
+                last_book_published_on=Max('books__publication_date'),
+                lowest_book_price=Min('books__price'),
+                highest_book_price=Max('books__price'),
+                average_book_price=Avg('books__price'),
+                average_number_of_pages_per_book=Avg('books__pages'),
+                number_of_books_sold=Count('books__order_lines'),
+                total_amount_earned=Sum(
+                    'books__order_lines__book__price'
+                )
+            )
 
 
 class AuthorListValuesView(ListView):
@@ -157,10 +151,6 @@ class AuthorListValuesView(ListView):
     def get_queryset(self):
         """Get queryset."""
         return self.model.objects.all() \
-            .only('id',
-                  'salutation',
-                  'name',
-                  'email') \
             .values('id',
                     'salutation',
                     'name',
@@ -176,10 +166,6 @@ class AuthorListValuesWithCountsView(ListView):
     def get_queryset(self):
         """Get queryset."""
         return self.model.objects.all() \
-            .only('id',
-                  'salutation',
-                  'name',
-                  'email') \
             .annotate(
                 number_of_books=Count('books'),
                 first_book_published_on=Min('books__publication_date'),
@@ -215,10 +201,6 @@ class AuthorListJSONView(JSONResponseMixin, TemplateView):
         """Get queryset."""
         return list(
             self.model.objects.all()
-                .only('id',
-                      'salutation',
-                      'name',
-                      'email')
                 .values('id',
                         'salutation',
                         'name',
