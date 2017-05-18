@@ -1,3 +1,4 @@
+import os
 from .core import PROJECT_DIR
 
 
@@ -29,3 +30,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = PROJECT_DIR('../../tmp')
 
 DEFAULT_FROM_EMAIL = '<no-reply@localhost>'
+
+os.environ.setdefault(
+    'ORMEX_SOURCE_PATH',
+    '/home/user/repositories/django-ormex/src'
+)

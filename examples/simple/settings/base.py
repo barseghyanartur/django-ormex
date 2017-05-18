@@ -115,6 +115,28 @@ try:
 except Exception as err:
     DEBUG_TEMPLATE = False
 
+try:
+    from .local_settings import USE_CACHED_TEMPLATE_LOADERS
+except Exception as err:
+    USE_CACHED_TEMPLATE_LOADERS = False
+
+if USE_CACHED_TEMPLATE_LOADERS:
+
+    _TEMPLATE_LOADERS = [
+        ('django.template.loaders.cached.Loader', (
+            'django.template.loaders.filesystem.Loader',
+            'django.template.loaders.app_directories.Loader',
+            # 'django.template.loaders.eggs.Loader',
+        )),
+    ]
+else:
+
+    _TEMPLATE_LOADERS = [
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+        # 'django.template.loaders.eggs.Loader',
+    ]
+
 if versions.DJANGO_GTE_1_10:
     TEMPLATES = [
         {
@@ -129,11 +151,7 @@ if versions.DJANGO_GTE_1_10:
                     "django.contrib.messages.context_processors.messages",
                     # "context_processors.testing",  # Testing
                 ],
-                'loaders': [
-                    'django.template.loaders.filesystem.Loader',
-                    'django.template.loaders.app_directories.Loader',
-                    'django.template.loaders.eggs.Loader',
-                ],
+                'loaders': _TEMPLATE_LOADERS,
                 'debug': DEBUG_TEMPLATE,
             }
         },
@@ -156,11 +174,7 @@ elif versions.DJANGO_GTE_1_8:
                     "django.template.context_processors.request",
                     # "context_processors.testing",  # Testing
                 ],
-                'loaders': [
-                    'django.template.loaders.filesystem.Loader',
-                    'django.template.loaders.app_directories.Loader',
-                    'django.template.loaders.eggs.Loader',
-                ],
+                'loaders': _TEMPLATE_LOADERS,
                 'debug': DEBUG_TEMPLATE,
             }
         },
@@ -170,11 +184,7 @@ else:
 
     # List of callables that know how to import templates from various
     # sources.
-    TEMPLATE_LOADERS = (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-        'django.template.loaders.eggs.Loader',
-    )
+    TEMPLATE_LOADERS = _TEMPLATE_LOADERS
 
     TEMPLATE_CONTEXT_PROCESSORS = (
         "django.contrib.auth.context_processors.auth",

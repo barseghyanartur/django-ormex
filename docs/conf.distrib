@@ -288,7 +288,7 @@ texinfo_documents = [
    u'django-ormex Documentation',
    u'Artur Barseghyan <artur.barseghyan@gmail.com>',
    'django-ormex',
-   "Dummy thumbnails for most popular Django thumbnail generators..",
+   "Django ORM extensions",
    'Miscellaneous'),
 ]
 

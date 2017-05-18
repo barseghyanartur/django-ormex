@@ -15,5 +15,5 @@ mkdir ../tmp/
 cp settings/local_settings.example settings/local_settings.py
 ./manage.py migrate --noinput --traceback -v 3
 ./manage.py collectstatic --noinput --traceback -v 3
-./manage.py books_create_test_data --number=100 --traceback -v 3
+./manage.py books_create_test_data --number=20 --traceback -v 3
 ./manage.py runserver 0.0.0.0:8001 --traceback -v 3
