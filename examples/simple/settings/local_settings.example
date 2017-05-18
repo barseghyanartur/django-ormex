@@ -35,3 +35,5 @@ os.environ.setdefault(
     'ORMEX_SOURCE_PATH',
     '/home/user/repositories/django-ormex/src'
 )
+
+# LOGGING = {}  # Disable logging

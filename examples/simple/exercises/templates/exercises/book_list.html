@@ -22,7 +22,7 @@
         {% for book in object_list %}
             <tr>
                 <td>{{ book.title }}</td>
-                <td>{% for author in book.authors.all %}{{ author.name }}{% if not forloop.last %},{% endif %}{% endfor %}</td>
+                <td>{% for author in book.authors.all %}{{ author.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
                 <td>{{ book.publisher.name }}</td>
                 <td>{{ book.pages }}</td>
                 <td>{{ book.price }}</td>
