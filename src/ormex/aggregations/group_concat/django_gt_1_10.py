@@ -47,7 +47,7 @@ class PostgreSQL9GroupConcat(Aggregate):
     For PostgreSQL >= 9.0.
     """
 
-    sql_function = 'string_agg'
+    function = 'string_agg'
 
     @property
     def template(self):

@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Test the core package.
-
-- DummyThumbnailsCoreTest: Test core functionality.
+Test the aggregations package.
 """
 
 import unittest
@@ -36,8 +34,8 @@ class OrmexAggregationsTest(TestCase):
         )
 
     @log_info
-    def test_01_group_concat(self):
-        """Test ``get_random_image``."""
+    def __test_group_concat(self):
+        """Test ``GroupConcat``."""
         book_cls = apps.get_model('books', 'Book')
         book = book_cls.objects.all() \
             .select_related('publisher') \
@@ -79,6 +77,12 @@ class OrmexAggregationsTest(TestCase):
             self.assertIn(book_author.name, book['authors__name'])
 
         return book['authors__name']
+
+    @log_info
+    def test_01_group_concat(self):
+        """Test GroupConcat."""
+        self.__test_group_concat()
+
 
 if __name__ == '__main__':
     unittest.main()
