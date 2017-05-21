@@ -82,7 +82,7 @@ We could use GroupConcat as follows:
 
     from ormex.aggregations import GroupConcat
 
-    books = Book.objects.all() \
+    book = Book.objects.all() \
             .values('id',
                     'title',
                     'pages',
@@ -92,7 +92,21 @@ We could use GroupConcat as follows:
             .annotate(
                 authors__name=GroupConcat('authors__name', separator=', ')
             ) \
-            .distinct()
+            .first()
+
+Output would look as follows:
+
+.. code-block:: python
+
+    {
+        'authors__name': 'Finn Janssen, Dan Dijkman, Merel Wolf, Evy de Jong',
+        'id': 14,
+        'pages': 83,
+        'price': Decimal('62.13'),
+        'publisher__id': 19,
+        'publisher__name': 'Rijn, de Bruyn and Verharen',
+        'title': 'Laboriosam officia temporibus facere omnis odit.'
+    }
 
 Demo
 ====

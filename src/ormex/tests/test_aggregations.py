@@ -9,6 +9,8 @@ from django.core.management import call_command
 from django.test import Client, TestCase
 from django.apps import apps
 
+import pytest
+
 from ..aggregations import GroupConcat
 
 from .base import log_info
@@ -21,8 +23,11 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('OrmexAggregationsTest',)
 
 
+@pytest.mark.django_db
 class OrmexAggregationsTest(TestCase):
     """Testing `django-ormex` aggregations functionality."""
+
+    pytestmark = pytest.mark.django_db
 
     def setUp(self):
         """Set up."""
@@ -34,7 +39,7 @@ class OrmexAggregationsTest(TestCase):
         )
 
     @log_info
-    def __test_group_concat(self):
+    def __test_group_concat(self, **kwargs):
         """Test ``GroupConcat``."""
         book_cls = apps.get_model('books', 'Book')
         book = book_cls.objects.all() \
@@ -54,7 +59,7 @@ class OrmexAggregationsTest(TestCase):
                     'price',
                     'publisher__id',
                     'publisher__name') \
-            .annotate(authors__name=GroupConcat('authors__name')) \
+            .annotate(authors__name=GroupConcat('authors__name', **kwargs)) \
             .distinct() \
             .last()
 
@@ -82,6 +87,21 @@ class OrmexAggregationsTest(TestCase):
     def test_01_group_concat(self):
         """Test GroupConcat."""
         self.__test_group_concat()
+
+    @log_info
+    def test_02_group_concat_with_separator(self):
+        """Test GroupConcat."""
+        self.__test_group_concat(separator=',')
+
+    @log_info
+    def test_03_group_concat_with_alternative_separator(self):
+        """Test GroupConcat."""
+        self.__test_group_concat(separator='|')
+
+    @log_info
+    def test_04_group_concat_with_sort_results(self):
+        """Test GroupConcat."""
+        self.__test_group_concat(sort_results=True)
 
 
 if __name__ == '__main__':

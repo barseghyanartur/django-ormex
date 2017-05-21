@@ -103,7 +103,9 @@ class BookListValuesView(ListView):
                     'publisher__id',
                     'publisher__name') \
             .annotate(
-                authors__name=GroupConcat('authors__name', separator=', ')
+                authors__name=GroupConcat('authors__name',
+                                          separator=', ',
+                                          sort_results=True)
             ) \
             .distinct()
 

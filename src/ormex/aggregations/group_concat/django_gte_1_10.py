@@ -49,10 +49,26 @@ class PostgreSQL9GroupConcat(Aggregate):
 
     function = 'string_agg'
 
+    def __init__(self, *expressions, **extra):
+        # For PostgreSQL separator is an obligatory
+        if 'separator' not in extra:
+            extra.update({'separator': ', '})
+        super(PostgreSQL9GroupConcat, self).__init__(*expressions, **extra)
+
     @property
     def template(self):
-        # The ::text cast is a hardcoded hack to work with integer columns
-        return "%(function)s(%(field)s::text, '%(separator)s')"
+        # The ::text cast is a hardcoded hack to work with integer columns.
+        # Also, separator is obligatory
+        sort_results = self.extra.get('sort_results', False)
+
+        if sort_results:
+            return "%(function)s(" \
+                   "%(field)s::text, " \
+                   "'%(separator)s' " \
+                   "ORDER BY %(field)s" \
+                   ")"
+        else:
+            return "%(function)s(%(field)s::text, '%(separator)s')"
 
 
 class PostgreSQL8GroupConcat(Aggregate):
@@ -63,9 +79,23 @@ class PostgreSQL8GroupConcat(Aggregate):
 
     function = 'array_to_string'
 
+    def __init__(self, *expressions, **extra):
+        # For PostgreSQL separator is an obligatory
+        if 'separator' not in extra:
+            extra.update({'separator': ', '})
+        super(PostgreSQL9GroupConcat, self).__init__(*expressions, **extra)
+
     @property
     def template(self):
-        return "%(function)s(array_agg(%(field)s), '%(separator)s')"
+        sort_results = self.extra.get('sort_results', False)
+        if sort_results:
+            return "%(function)s(" \
+                   "array_agg(%(field)s), " \
+                   "'%(separator)s'" \
+                   "ORDER BY %(field)s" \
+                   ")"
+        else:
+            return "%(function)s(array_agg(%(field)s), '%(separator)s')"
 
 
 PostgreSQLGroupConcat = PostgreSQL9GroupConcat

@@ -15,6 +15,16 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.2
+---
+2017-05-21
+
+- The ``sort_results`` argument added to ``aggregations.GroupConcat``.
+- Make sure ``separator`` argument of ``aggregations.GroupConcat`` is always
+  passed along in case of PostgreSQL, since then it's an obligatory argument.
+- Tests added.
+- Added explicit testing against sqlite, mysql and postgresql in tox.
+
 0.1.1
 -----
 2017-05-18

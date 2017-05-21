@@ -1,16 +1,17 @@
 from .base import *  # NOQA
 
 
-_SQLITE_DATABASES = {
+SQLITE_DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': PROJECT_DIR(os.path.join('..', '..', 'db', 'example.db')),
     }
 }
 
-_MYSQL_DATABASES = {
+MYSQL_DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ormex',
         'USER': 'root',
         'PASSWORD': 'test',
         # Empty for localhost through domain sockets or '127.0.0.1' for
@@ -21,9 +22,10 @@ _MYSQL_DATABASES = {
     }
 }
 
-_POSTGRESQL_DATABASES = {
+POSTGRESQL_DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ormex',
         'USER': 'postgres',
         'PASSWORD': 'test',
         # Empty for localhost through domain sockets or '127.0.0.1' for
@@ -34,7 +36,7 @@ _POSTGRESQL_DATABASES = {
     }
 }
 
-DATABASES = _SQLITE_DATABASES
+DATABASES = SQLITE_DATABASES
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

@@ -10,7 +10,7 @@ Prerequisites
 
 Installation
 ============
-(1) Install in your virtual environment
+(1) Install in your virtual environment.
 
     Latest stable version from PyPI:
 
@@ -35,7 +35,10 @@ Contains various modules for aggregations.
 GroupConcat
 ~~~~~~~~~~~
 Works like Concat, but for concatenating field values of related ManyToMany
-model.
+model. For instance, you may use it if you have an ``Author`` model as
+ManyToMany relation in the ``Book`` model
+(``Book.authors = ManyToManyField(Author)``) and you want to have concatenated
+list of all authors coupled to a given book.
 
 Given the following models:
 
@@ -79,25 +82,31 @@ We could use GroupConcat as follows:
 
     from ormex.aggregations import GroupConcat
 
-    books = Book.objects.all() \
-            .select_related('publisher') \
-            .prefetch_related('authors') \
-            .only('id',
-                  'title',
-                  'pages',
-                  'price',
-                  'publisher__id',
-                  'publisher__name',
-                  'authors__id',
-                  'authors__name') \
+    book = Book.objects.all() \
             .values('id',
                     'title',
                     'pages',
                     'price',
                     'publisher__id',
                     'publisher__name') \
-            .annotate(authors__name=GroupConcat('authors__name')) \
-            .distinct()
+            .annotate(
+                authors__name=GroupConcat('authors__name', separator=', ')
+            ) \
+            .first()
+
+Output would look as follows:
+
+.. code-block:: python
+
+    {
+        'authors__name': 'Finn Janssen, Dan Dijkman, Merel Wolf, Evy de Jong',
+        'id': 14,
+        'pages': 83,
+        'price': Decimal('62.13'),
+        'publisher__id': 19,
+        'publisher__name': 'Rijn, de Bruyn and Verharen',
+        'title': 'Laboriosam officia temporibus facere omnis odit.'
+    }
 
 Demo
 ====

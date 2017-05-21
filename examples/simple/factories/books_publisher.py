@@ -28,6 +28,7 @@ class BasePublisherFactory(DjangoModelFactory):
 
         model = Publisher
         abstract = True
+        django_get_or_create = ('name',)
 
 
 class PublisherFactory(BasePublisherFactory):
