@@ -47,31 +47,31 @@ Given the following models:
     class Publisher(models.Model):
         """Publisher."""
 
-        name = models.CharField(max_length=30)
-        address = models.CharField(max_length=50)
-        city = models.CharField(max_length=60)
-        state_province = models.CharField(max_length=30)
-        country = models.CharField(max_length=50)
-        website = models.URLField()
+        name = models.CharField(max_length=255)
+        address = models.CharField(max_length=255)
+        city = models.CharField(max_length=255)
+        state_province = models.CharField(max_length=255)
+        country = models.CharField(max_length=255)
+        website = models.URLField(max_length=255)
 
 
     class Author(models.Model):
         """Author."""
 
-        salutation = models.CharField(max_length=10)
-        name = models.CharField(max_length=200)
-        email = models.EmailField()
+        salutation = models.CharField(max_length=255)
+        name = models.CharField(max_length=255)
+        email = models.EmailField(max_length=255)
         headshot = models.ImageField(upload_to='authors', null=True, blank=True)
 
 
     class Book(models.Model):
         """Book."""
 
-        title = models.CharField(max_length=100)
+        title = models.CharField(max_length=255)
         authors = models.ManyToManyField('books.Author', related_name='books')
         publisher = models.ForeignKey(Publisher, related_name='books')
         publication_date = models.DateField()
-        isbn = models.CharField(max_length=100, unique=True)
+        isbn = models.CharField(max_length=255, unique=True)
         price = models.DecimalField(max_digits=10, decimal_places=2)
         pages = models.PositiveIntegerField(default=200)
         stock_count = models.PositiveIntegerField(default=30)
