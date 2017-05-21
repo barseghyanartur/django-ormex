@@ -8,21 +8,25 @@ Prerequisites
 - Django 1.8, 1.9, 1.10, 1.11
 - Python 2.7, 3.4, 3.5, 3.6
 
+Supported databases
+===================
+PostgreSQL, MySQL, SQLite
+
 Installation
 ============
-(1) Install in your virtual environment.
+Install in your virtual environment.
 
-    Latest stable version from PyPI:
+Latest stable version from PyPI:
 
-    .. code-block:: sh
+.. code-block:: sh
 
-        pip install django-ormex
+    pip install django-ormex
 
-    Latest stable version from GitHub:
+Latest stable version from GitHub:
 
-    .. code-block:: sh
+.. code-block:: sh
 
-        pip install https://github.com/barseghyanartur/django-ormex/archive/stable.tar.gz
+    pip install https://github.com/barseghyanartur/django-ormex/archive/stable.tar.gz
 
 Usage
 =====
