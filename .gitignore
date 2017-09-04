@@ -10,6 +10,7 @@
 /htmlcov/
 *.py,cover
 
+/.idea/
 MANIFEST.in~
 MIND_BUCKET.rst
 codebin/

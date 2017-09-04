@@ -49,7 +49,7 @@ class SingleAuthorFactory(BaseAuthorFactory):
 
     id = 999999
     name = "Artur Barseghyan"
-    email = "barseghyan@gw20e.com"
+    email = "artur.barseghyan@gmail.com"
 
     class Meta(object):
         """Meta class."""

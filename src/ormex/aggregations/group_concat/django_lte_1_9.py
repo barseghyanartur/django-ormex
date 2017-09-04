@@ -3,6 +3,8 @@ from django.db.models import Aggregate
 from django.db.models.sql.aggregates import Aggregate as SQLAggregate
 from django.core.exceptions import ImproperlyConfigured
 
+from .base import GroupConcatMixin
+
 __title__ = 'ormex.aggregations.group_concat.django_lte_1_9'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2016-2017 Artur Barseghyan'
@@ -18,7 +20,7 @@ __all__ = (
 )
 
 
-class MySQLGroupConcat(SQLAggregate):
+class MySQLGroupConcat(SQLAggregate, GroupConcatMixin):
     """SQL group concat.
 
     Works fine with SQLite and MySQL.
@@ -30,20 +32,60 @@ class MySQLGroupConcat(SQLAggregate):
     def sql_template(self):
         """SQL template."""
         separator = self.extra.get('separator')
-        if separator:
-            return '%(function)s(%(field)s, "%(separator)s")'
-        else:
-            return '%(function)s(%(field)s)'
+        order_by_sql = self.get_order_by_sql()
+        distinct_sql = self.get_distinct_sql()
+        separator_sql = ' SEPARATOR "%(separator)s" ' if separator else ''
+
+        sql = '%(function)s( '
+
+        if distinct_sql:
+            sql += distinct_sql
+
+        sql += ' %(field)s '
+
+        if separator_sql:
+            sql += separator_sql
+
+        if order_by_sql:
+            sql += order_by_sql
+
+        sql += ')'
+
+        return sql
 
 
-class SQLiteGroupConcat(MySQLGroupConcat):
-    """SQLite group concat.
+class SQLiteGroupConcat(SQLAggregate, GroupConcatMixin):
+    """SQLite group concat."""
 
-    Works just the same way as MySQLConcat.
-    """
+    sql_function = 'group_concat'
+
+    @property
+    def sql_template(self):
+        """SQL template."""
+        separator = self.extra.get('separator')
+        # order_by_sql = self.get_order_by_sql()
+        distinct_sql = self.get_distinct_sql()
+        separator_sql = ' , "%(separator)s" ' if separator else ''
+
+        sql = '%(function)s( '
+
+        if distinct_sql:
+            sql += distinct_sql
+
+        sql += ' %(field)s '
+
+        if separator_sql:
+            sql += separator_sql
+
+        # if order_by_sql:
+        #     sql += order_by_sql
+
+        sql += ')'
+
+        return sql
 
 
-class PostgreSQL9GroupConcat(SQLAggregate):
+class PostgreSQL9GroupConcat(SQLAggregate, GroupConcatMixin):
     """PostgreSQL group concat.
 
     For PostgreSQL >= 9.0.
@@ -61,19 +103,19 @@ class PostgreSQL9GroupConcat(SQLAggregate):
     def sql_template(self):
         # The ::text cast is a hardcoded hack to work with integer columns.
         # Also, separator is obligatory
-        sort_results = self.extra.get('sort_results', False)
+        order_by = self.extra.get('order_by', None)
 
-        if sort_results:
+        if order_by:
             return "%(function)s(" \
                    "%(field)s::text, " \
                    "'%(separator)s' " \
-                   "ORDER BY %(field)s" \
+                   "ORDER BY %(order_by)s" \
                    ")"
         else:
             return "%(function)s(%(field)s::text, '%(separator)s')"
 
 
-class PostgreSQL8GroupConcat(SQLAggregate):
+class PostgreSQL8GroupConcat(SQLAggregate, GroupConcatMixin):
     """PostgreSQL group concat.
 
     For PostgreSQL >= 8.4 and < 9.0.
@@ -89,12 +131,12 @@ class PostgreSQL8GroupConcat(SQLAggregate):
 
     @property
     def sql_template(self):
-        sort_results = self.extra.get('sort_results', False)
-        if sort_results:
+        order_by = self.extra.get('order_by', None)
+        if order_by:
             return "%(function)s(" \
                    "array_agg(%(field)s), " \
                    "'%(separator)s'" \
-                   "ORDER BY %(field)s" \
+                   "ORDER BY %(order_by)s" \
                    ")"
         else:
             return "%(function)s(array_agg(%(field)s), '%(separator)s')"

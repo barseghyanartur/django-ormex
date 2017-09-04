@@ -112,6 +112,42 @@ Output would look as follows:
         'title': 'Laboriosam officia temporibus facere omnis odit.'
     }
 
+``GroupConcat`` accepts an optional argument ``order_by`` which can be used
+for tuning the sorting order of the resulted list of strings. In case if
+``self`` is given as value, sorted by the same field. In order to sort the
+list of authors by name from the example above, do:
+
+.. code-block:: python
+
+    book = Book.objects.all() \
+            .values('id',
+                    'title',
+                    'pages',
+                    'price',
+                    'publisher__id',
+                    'publisher__name') \
+            .annotate(
+                authors__name=GroupConcat('authors__name',
+                                          separator=', ',
+                                          order_by='self')
+            ) \
+            .first()
+
+
+Output would look as follows:
+
+.. code-block:: python
+
+    {
+        'authors__name': 'Dan Dijkman, Evy de Jong, Finn Janssen, Merel Wolf',
+        'id': 14,
+        'pages': 83,
+        'price': Decimal('62.13'),
+        'publisher__id': 19,
+        'publisher__name': 'Rijn, de Bruyn and Verharen',
+        'title': 'Laboriosam officia temporibus facere omnis odit.'
+    }
+
 Demo
 ====
 Run demo locally

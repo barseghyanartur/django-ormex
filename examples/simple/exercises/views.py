@@ -7,14 +7,14 @@ import factories
 
 __all__ = (
     'AddAuthorsToBookView',
-    'AuthorListView',
     'AuthorListJSONView',
+    'AuthorListView',
     'BookListView',
     'CreateAuthorsView',
-    'PublisherListView',
-    'PublisherIDsView',
-    'UpdateBooksView',
     'IndexView',
+    'PublisherIDsView',
+    'PublisherListView',
+    'UpdateBooksView',
 )
 
 

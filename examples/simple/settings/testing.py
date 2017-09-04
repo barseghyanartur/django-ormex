@@ -36,7 +36,7 @@ POSTGRESQL_DATABASES = {
     }
 }
 
-DATABASES = SQLITE_DATABASES
+DATABASES = POSTGRESQL_DATABASES
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

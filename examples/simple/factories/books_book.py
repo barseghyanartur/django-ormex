@@ -11,7 +11,7 @@ from books.models import Book
 
 from .factory_faker import Faker
 from .books_author import (
-    AuthorFactory,
+    # AuthorFactory,
     LimitedAuthorFactory,
     SingleAuthorFactory,
 )
@@ -87,7 +87,7 @@ class SingleBookFactory(BaseBookFactory):
     """Book factory, but limited to a single book."""
 
     id = 999999
-    title = "Performance optimisation"
+    title = "Django performance unchained"
     publisher = SubFactory('factories.books_publisher.SinglePublisherFactory')
 
     class Meta(object):

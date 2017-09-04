@@ -99,9 +99,9 @@ class OrmexAggregationsTest(TestCase):
         self.__test_group_concat(separator='|')
 
     @log_info
-    def test_04_group_concat_with_sort_results(self):
+    def test_04_group_concat_with_order_by(self):
         """Test GroupConcat."""
-        self.__test_group_concat(sort_results=True)
+        self.__test_group_concat(order_by='self')
 
 
 if __name__ == '__main__':

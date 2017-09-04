@@ -11,20 +11,20 @@ from .models import Author, Book, Publisher
 
 __all__ = (
     'AddAuthorsToBookView',
-    'AuthorListView',
     'AuthorListJSONView',
     'AuthorListValuesView',
     'AuthorListValuesWithCountsView',
+    'AuthorListView',
     'AuthorListWithCountsView',
-    'CreateAuthorsView',
-    'BookListView',
     'BookListValuesView',
+    'BookListView',
+    'CreateAuthorsView',
+    'IndexView',
     # 'OrderLineListView',
     # 'OrderListView',
     'PublisherIDsView',
     'PublisherListView',
     'UpdateBooksView',
-    'IndexView',
 )
 
 
@@ -105,7 +105,7 @@ class BookListValuesView(ListView):
             .annotate(
                 authors__name=GroupConcat('authors__name',
                                           separator=', ',
-                                          sort_results=True)
+                                          order_by='authors__name')
             ) \
             .distinct()
 
