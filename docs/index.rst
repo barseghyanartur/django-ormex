@@ -3,10 +3,30 @@ django-ormex
 ============
 Django ORM extensions.
 
+.. image:: https://img.shields.io/pypi/v/django-ormex.svg
+   :target: https://pypi.python.org/pypi/django-ormex
+   :alt: PyPI Version
+
+.. image:: https://img.shields.io/pypi/pyversions/django-ormex.svg
+    :target: https://pypi.python.org/pypi/django-ormex/
+    :alt: Supported Python versions
+
+.. image:: https://img.shields.io/travis/barseghyanartur/django-ormex/master.svg
+   :target: http://travis-ci.org/barseghyanartur/django-ormex
+   :alt: Build Status
+
+.. image:: https://img.shields.io/badge/license-GPL--2.0--only%20OR%20LGPL--2.1--or--later-blue.svg
+   :target: https://github.com/barseghyanartur/django-ormex/#License
+   :alt: GPL-2.0-only OR LGPL-2.1-or-later
+
+.. image:: https://coveralls.io/repos/github/barseghyanartur/django-ormex/badge.svg?branch=master&service=github
+    :target: https://coveralls.io/github/barseghyanartur/django-ormex?branch=master
+    :alt: Coverage
+
 Prerequisites
 =============
-- Django 1.8, 1.9, 1.10, 1.11
-- Python 2.7, 3.4, 3.5, 3.6
+- Django 1.11, 2.2 and 3.0.
+- Python 2.7, 3.5, 3.6, 3.7 and 3.8
 
 Supported databases
 ===================
@@ -112,6 +132,42 @@ Output would look as follows:
         'title': 'Laboriosam officia temporibus facere omnis odit.'
     }
 
+``GroupConcat`` accepts an optional argument ``order_by`` which can be used
+for tuning the sorting order of the resulted list of strings. In case if
+``self`` is given as value, sorted by the same field. In order to sort the
+list of authors by name from the example above, do:
+
+.. code-block:: python
+
+    book = Book.objects.all() \
+            .values('id',
+                    'title',
+                    'pages',
+                    'price',
+                    'publisher__id',
+                    'publisher__name') \
+            .annotate(
+                authors__name=GroupConcat('authors__name',
+                                          separator=', ',
+                                          order_by='self')
+            ) \
+            .first()
+
+
+Output would look as follows:
+
+.. code-block:: python
+
+    {
+        'authors__name': 'Dan Dijkman, Evy de Jong, Finn Janssen, Merel Wolf',
+        'id': 14,
+        'pages': 83,
+        'price': Decimal('62.13'),
+        'publisher__id': 19,
+        'publisher__name': 'Rijn, de Bruyn and Verharen',
+        'title': 'Laboriosam officia temporibus facere omnis odit.'
+    }
+
 Demo
 ====
 Run demo locally
@@ -153,7 +209,7 @@ or use tox to check specific env:
 
 .. code-block:: sh
 
-    tox -e py35
+    tox -e py38
 
 or run Django tests:
 
@@ -163,7 +219,7 @@ or run Django tests:
 
 License
 =======
-GPL 2.0/LGPL 2.1
+GPL-2.0-only OR LGPL-2.1-or-later
 
 Support
 =======

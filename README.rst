@@ -209,7 +209,7 @@ or use tox to check specific env:
 
 .. code-block:: sh
 
-    tox -e py35
+    tox -e py38
 
 or run Django tests:
 
