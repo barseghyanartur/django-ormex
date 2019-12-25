@@ -9,7 +9,11 @@ language: python
 matrix:
   fast_finish: true
   include:
-  - env: TOX_ENV=py27-django111
+  - env: TOX_ENV=py27-django111-sqlite
+    python: 2.7
+  - env: TOX_ENV=py27-django111-mysql
+    python: 2.7
+  - env: TOX_ENV=py27-django111-postgresql
     python: 2.7
 
   - env: TOX_ENV=py35-django111

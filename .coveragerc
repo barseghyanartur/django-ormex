@@ -3,3 +3,4 @@ omit =
     src/ormex/tests/*
     example/simple/settings/*
     example/simple/wsgi.py
+    .tox/
