@@ -22,6 +22,8 @@ are used for versioning (schema follows below):
 - Tested against Python 3.7 and 3.8.
 - Tested against Django 2.2 and 3.0.
 - Drop Python 3.4 support.
+- Drop Django support for old Django versions.
+  Supported for version is 1.11 and onwards.
 
 0.2
 ---

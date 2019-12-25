@@ -25,7 +25,7 @@ Django ORM extensions.
 
 Prerequisites
 =============
-- Django 1.8, 1.9, 1.10, 1.11, 2.2 and 3.0.
+- Django 1.11, 2.2 and 3.0.
 - Python 2.7, 3.5, 3.6, 3.7 and 3.8
 
 Supported databases
