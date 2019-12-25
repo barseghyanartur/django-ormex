@@ -1,5 +1,7 @@
+import os
 from .base import *  # NOQA
 
+IS_TRAVIS = 'TRAVIS' in os.environ
 
 SQLITE_DATABASES = {
     'default': {
@@ -13,7 +15,7 @@ MYSQL_DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ormex',
         'USER': 'root',
-        'PASSWORD': 'test',
+        'PASSWORD': '' if IS_TRAVIS else 'test',
         # Empty for localhost through domain sockets or '127.0.0.1' for
         # localhost through TCP.
         'HOST': '',
@@ -27,7 +29,7 @@ POSTGRESQL_DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'ormex',
         'USER': 'postgres',
-        'PASSWORD': 'test',
+        'PASSWORD': '' if IS_TRAVIS else 'test',
         # Empty for localhost through domain sockets or '127.0.0.1' for
         # localhost through TCP.
         'HOST': '',

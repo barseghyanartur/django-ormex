@@ -1,2 +1,2 @@
 reset
-pycodestyle src/dummy_thumbnails/
+pycodestyle src/ormex/
