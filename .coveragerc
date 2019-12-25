@@ -1,6 +1,7 @@
 [run]
 omit =
     src/ormex/tests/*
+    src/ormex/aggregations/group_concat/django_lte_1_9.py
     example/simple/settings/*
     example/simple/wsgi.py
     .tox/

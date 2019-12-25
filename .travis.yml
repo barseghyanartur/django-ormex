@@ -106,7 +106,7 @@ matrix:
 install: pip install -r examples/requirements/test.txt
 
 before_script:
-  - sleep 10
+  - sleep 1
 
 script: travis_retry tox -e $TOX_ENV
 
