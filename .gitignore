@@ -38,4 +38,4 @@ QUICK_START.rst
 /examples/simple/settings/local_settings.py
 /src/ormex/static/
 /src/ormex/aggregations/group_concat_new.py
-
+.pytest_cache/

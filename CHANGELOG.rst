@@ -19,6 +19,14 @@ are used for versioning (schema follows below):
 ---
 2017-05-21
 
+- Tested against Python 3.7 and 3.8.
+- Tested against Django 2.2 and 3.0.
+- Drop Python 3.4 support.
+
+0.2
+---
+2017-05-21
+
 - The ``sort_results`` argument added to ``aggregations.GroupConcat``.
 - Make sure ``separator`` argument of ``aggregations.GroupConcat`` is always
   passed along in case of PostgreSQL, since then it's an obligatory argument.

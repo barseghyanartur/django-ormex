@@ -8,13 +8,12 @@ from django.core.management import call_command
 
 from .base import (
     is_app_setup_completed,
-    mark_app_setup_as_completed
+    mark_app_setup_as_completed,
 )
 
-__title__ = 'ormex.tests.helpers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2017 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__copyright__ = '2017-2020 Artur Barseghyan'
+__license__ = 'GPL-2.0-only OR LGPL-2.1-or-later'
 __all__ = ('setup_app',)
 
 

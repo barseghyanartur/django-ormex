@@ -5,7 +5,6 @@ if DJANGO_LTE_1_9:
 else:
     from .django_gte_1_10 import *
 
-__title__ = 'ormex.aggregations.group_concat'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2017 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__license__ = 'GPL-2.0-only OR LGPL-2.1-or-later'

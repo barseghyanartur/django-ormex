@@ -7,8 +7,8 @@ from .base import GroupConcatMixin
 
 __title__ = 'ormex.aggregations.group_concat.django_lte_1_9'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2016-2017 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__copyright__ = '2016-2020 Artur Barseghyan'
+__license__ = 'GPL-2.0-only OR LGPL-2.1-or-later'
 __all__ = (
     'GROUP_CONCAT_CLASS',
     'GroupConcat',

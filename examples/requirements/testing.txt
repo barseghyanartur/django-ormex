@@ -1,2 +1,1 @@
--r django_1_8.txt
 -r test.txt

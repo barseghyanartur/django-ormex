@@ -7,11 +7,11 @@ try:
 except:
     readme = ''
 
-version = '0.2'
+version = '0.2.1'
 
 install_requires = [
     'six>=1.9',
-    'django-nine>=0.1.10',
+    'django-nine>=0.2.2',
 ]
 
 extras_require = []
@@ -32,9 +32,10 @@ setup(
     long_description=readme,
     classifiers=[
         "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "Environment :: Web Environment",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "License :: OSI Approved :: GNU Lesser General Public License v2 or "
@@ -50,7 +51,7 @@ setup(
     url='https://github.com/barseghyanartur/django-ormex/',
     package_dir={'': 'src'},
     packages=find_packages(where='./src'),
-    license='GPL 2.0/LGPL 2.1',
+    license='GPL-2.0-only OR LGPL-2.1-or-later',
     install_requires=(install_requires + extras_require),
     tests_require=tests_require,
     include_package_data=True,

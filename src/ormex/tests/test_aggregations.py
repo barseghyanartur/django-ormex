@@ -5,9 +5,9 @@ Test the aggregations package.
 
 import unittest
 
+from django.apps import apps
 from django.core.management import call_command
 from django.test import Client, TestCase
-from django.apps import apps
 
 import pytest
 
@@ -16,10 +16,9 @@ from ..aggregations import GroupConcat
 from .base import log_info
 from .helpers import setup_app
 
-__title__ = 'ormex.tests.test_aggregations'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2017 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__copyright__ = '2017-2020 Artur Barseghyan'
+__license__ = 'GPL-2.0-only OR LGPL-2.1-or-later'
 __all__ = ('OrmexAggregationsTest',)
 
 

@@ -3,10 +3,30 @@ django-ormex
 ============
 Django ORM extensions.
 
+.. image:: https://img.shields.io/pypi/v/django-ormex.svg
+   :target: https://pypi.python.org/pypi/django-ormex
+   :alt: PyPI Version
+
+.. image:: https://img.shields.io/pypi/pyversions/django-ormex.svg
+    :target: https://pypi.python.org/pypi/django-ormex/
+    :alt: Supported Python versions
+
+.. image:: https://img.shields.io/travis/barseghyanartur/django-ormex/master.svg
+   :target: http://travis-ci.org/barseghyanartur/django-ormex
+   :alt: Build Status
+
+.. image:: https://img.shields.io/badge/license-GPL--2.0--only%20OR%20LGPL--2.1--or--later-blue.svg
+   :target: https://github.com/barseghyanartur/django-ormex/#License
+   :alt: GPL-2.0-only OR LGPL-2.1-or-later
+
+.. image:: https://coveralls.io/repos/github/barseghyanartur/django-ormex/badge.svg?branch=master&service=github
+    :target: https://coveralls.io/github/barseghyanartur/django-ormex?branch=master
+    :alt: Coverage
+
 Prerequisites
 =============
-- Django 1.8, 1.9, 1.10, 1.11
-- Python 2.7, 3.4, 3.5, 3.6
+- Django 1.8, 1.9, 1.10, 1.11, 2.2 and 3.0.
+- Python 2.7, 3.5, 3.6, 3.7 and 3.8
 
 Supported databases
 ===================
@@ -199,7 +219,7 @@ or run Django tests:
 
 License
 =======
-GPL 2.0/LGPL 2.1
+GPL-2.0-only OR LGPL-2.1-or-later
 
 Support
 =======
