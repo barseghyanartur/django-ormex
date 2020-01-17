@@ -15,6 +15,10 @@ Django ORM extensions.
    :target: http://travis-ci.org/barseghyanartur/django-ormex
    :alt: Build Status
 
+.. image:: https://readthedocs.org/projects/django-ormex/badge/?version=latest
+    :target: http://django-ormex.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
 .. image:: https://img.shields.io/badge/license-GPL--2.0--only%20OR%20LGPL--2.1--or--later-blue.svg
    :target: https://github.com/barseghyanartur/django-ormex/#License
    :alt: GPL-2.0-only OR LGPL-2.1-or-later
@@ -107,16 +111,16 @@ We could use GroupConcat as follows:
     from ormex.aggregations import GroupConcat
 
     book = Book.objects.all() \
-            .values('id',
-                    'title',
-                    'pages',
-                    'price',
-                    'publisher__id',
-                    'publisher__name') \
-            .annotate(
+            .values(
+                'id',
+                'title',
+                'pages',
+                'price',
+                'publisher__id',
+                'publisher__name'
+            ).annotate(
                 authors__name=GroupConcat('authors__name', separator=', ')
-            ) \
-            .first()
+            ).first()
 
 Output would look as follows:
 
@@ -140,19 +144,20 @@ list of authors by name from the example above, do:
 .. code-block:: python
 
     book = Book.objects.all() \
-            .values('id',
-                    'title',
-                    'pages',
-                    'price',
-                    'publisher__id',
-                    'publisher__name') \
-            .annotate(
-                authors__name=GroupConcat('authors__name',
-                                          separator=', ',
-                                          order_by='self')
-            ) \
-            .first()
-
+            .values(
+                'id',
+                'title',
+                'pages',
+                'price',
+                'publisher__id',
+                'publisher__name'
+            ).annotate(
+                authors__name=GroupConcat(
+                    'authors__name',
+                    separator=', ',
+                    order_by='self'
+                )
+            ).first()
 
 Output would look as follows:
 
